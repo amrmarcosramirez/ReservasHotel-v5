@@ -263,7 +263,28 @@ public class Vista {
                     reserva.setHabitacion(habitacionDisponible);
 
                     controlador.insertar(reserva);
-                    controlador.insertar(reserva.getHuesped());
+                    if(controlador.buscar(reserva.getHuesped()) == null) {
+                        controlador.insertar(reserva.getHuesped());
+                    } else {
+                        System.out.println("El huésped de la reserva está dado de alta e el sistema.\n");
+                        System.out.println("Información del sistema:\n");
+                        System.out.println(controlador.buscar(reserva.getHuesped()).toString());
+                        /*System.out.println("\nInformación del la reserva:\n");
+                        System.out.println(reserva.getHuesped().toString());
+                        System.out.println("\nDesea actualizar los datos del huésped en el sistema (S/N)?\n");
+                        char confCambio = Entrada.caracter();
+                        if (confCambio == 'S') {
+                            MongoCollection<Document> huespedes = (MongoCollection<Document>) new Huespedes();
+                            Bson c2 = eq(HUESPED_DNI, reserva.getHuesped().getDni());
+                            Bson campo = set(CORREO, reserva.getHuesped().getCorreo());
+                            Bson campo2 = set(TELEFONO, reserva.getHuesped().getTelefono());
+                            huespedes.updateOne(c2, campo);
+                            huespedes.updateOne(c2, campo2);
+                            //controlador.insertar(reserva.getHuesped());
+                            System.out.println("Información actualizada correctamente.");
+                        }*/
+                    }
+                    //controlador.insertar(reserva.getHuesped());
                     System.out.println("Reserva insertada correctamente.");
                 }
             }
