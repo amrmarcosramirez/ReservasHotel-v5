@@ -1,10 +1,9 @@
 package org.iesalandalus.programacion.reservashotel.controlador;
 
 import org.iesalandalus.programacion.reservashotel.modelo.IModelo;
-import org.iesalandalus.programacion.reservashotel.modelo.Modelo;
 
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
-import org.iesalandalus.programacion.reservashotel.vista.*;
+import org.iesalandalus.programacion.reservashotel.vista.texto.VistaTexto;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDateTime;
@@ -15,10 +14,10 @@ public class Controlador {
 
     // Se crean los atributos con su visibilidad adecuada
     private IModelo modelo;
-    private Vista vista;
+    private VistaTexto vista;
 
     //Se crea el constructor
-    public Controlador(IModelo modelo, Vista vista) {
+    public Controlador(IModelo modelo, VistaTexto vista) {
         Objects.requireNonNull(modelo, "ERROR: El modelo no puede ser nulo.");
         Objects.requireNonNull(vista, "ERROR: La vista no puede ser nula.");
         this.modelo = modelo;

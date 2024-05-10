@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.reservashotel.vista;
+package org.iesalandalus.programacion.reservashotel.vista.texto;
 
 public enum Opcion {
     SALIR("Salir") {
@@ -72,7 +72,7 @@ public enum Opcion {
 
     // Se crean los atributos con su visibilidad adecuada
     private String mensajeAMostrar;
-    private static Vista vista;
+    private static VistaTexto vista;
 
     //Constructor
     Opcion(String mensajeAMostrar) {
@@ -81,7 +81,7 @@ public enum Opcion {
 
     public abstract void ejecutar();
 
-    protected static void setVista(Vista vista) {
+    protected static void setVista(VistaTexto vista) {
         Opcion.vista = vista;
     }
 
