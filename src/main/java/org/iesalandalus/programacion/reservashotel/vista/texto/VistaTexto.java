@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.reservashotel.vista.texto;
 
 import org.iesalandalus.programacion.reservashotel.controlador.Controlador;
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
+import org.iesalandalus.programacion.reservashotel.vista.Vista;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
@@ -11,22 +12,24 @@ import java.util.*;
 
 import static org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion.*;
 
-public class VistaTexto {
+public class VistaTexto extends Vista {
 
     // Se crean los atributos con su visibilidad adecuada
-    private Controlador controlador;
+    //private Controlador controlador;
 
     // Se crean el constructor
     public VistaTexto() {
+        super();
         Opcion.setVista(this);
     }
 
     //Se crean los m�todos
+    /*
     public void setControlador(Controlador controlador) {
         Objects.requireNonNull(controlador, "ERROR: El controlador no puede ser nulo.");
         this.controlador = controlador;
     }
-
+    */
     public void comenzar() {
         Opcion opcion;
         do {
@@ -39,7 +42,7 @@ public class VistaTexto {
 
     public void terminar() {
         //System.out.println("Hasta luego.!!!");
-        controlador.terminar();
+        getControlador().terminar();
     }
 
     public void insertarHuesped() {
@@ -50,7 +53,7 @@ public class VistaTexto {
 
         try {
             Huesped huesped = Consola.leerHuesped();
-            controlador.insertar(huesped);
+            getControlador().insertar(huesped);
             System.out.println("Hu�sped insertado correctamente.");
         } catch (OperationNotSupportedException | IllegalArgumentException | NullPointerException e) {
             System.out.println(e.getMessage());
@@ -64,11 +67,11 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHuespedes().isEmpty()) {
+            if (getControlador().getHuespedes().isEmpty()) {
                 System.out.println("No hay hu�spedes dados de alta en el sistema.");
             } else {
                 Huesped huesped = Consola.leerClientePorDni();
-                Huesped huesped1 = controlador.buscar(huesped);
+                Huesped huesped1 = getControlador().buscar(huesped);
                 if (huesped1 != null) {
                     System.out.println("El hu�sped buscado es: " + huesped1);
                 } else {
@@ -88,15 +91,15 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHuespedes().isEmpty()) {
+            if (getControlador().getHuespedes().isEmpty()) {
                 System.out.println("No hay hu�spedes dados de alta en el sistema.");
             } else {
                 Huesped huesped = Consola.leerClientePorDni();
-                Huesped huesped1 = controlador.buscar(huesped);
+                Huesped huesped1 = getControlador().buscar(huesped);
                 if (huesped1 == null) {
                     System.out.println("No existe ning�n hu�sped con dicho DNI.");
                 } else {
-                    controlador.borrar(huesped1);
+                    getControlador().borrar(huesped1);
                     System.out.println("Hu�sped borrado correctamente.");
                 }
             }
@@ -113,7 +116,7 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            List<Huesped> listaHuespedes = controlador.getHuespedes();
+            List<Huesped> listaHuespedes = getControlador().getHuespedes();
             if (!listaHuespedes.isEmpty()) {
                 listaHuespedes.sort(Comparator.comparing(Huesped::getNombre));
                 listaHuespedes.forEach(huesped1 -> System.out.println(huesped1.toString()));
@@ -137,7 +140,7 @@ public class VistaTexto {
 
         try {
             //Habitacion habitacion = leerHabitacion();
-            controlador.insertar(Consola.leerHabitacion());
+            getControlador().insertar(Consola.leerHabitacion());
             System.out.println("Habitaci�n insertada correctamente.");
         } catch (OperationNotSupportedException|IllegalArgumentException|NullPointerException e) {
             System.out.println(e.getMessage());
@@ -151,11 +154,11 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHabitaciones().isEmpty()) {
+            if (getControlador().getHabitaciones().isEmpty()) {
                 System.out.println("No hay habitaciones dadas de alta en el sistema.");
             } else {
                 Habitacion habitacion = Consola.leerHabitacionPorIdentificador();
-                Habitacion habitacion1 = controlador.buscar(habitacion);
+                Habitacion habitacion1 = getControlador().buscar(habitacion);
                 if (habitacion1 != null) {
                     System.out.println("La habitaci�n buscada es: " + habitacion1);
                 } else {
@@ -175,15 +178,15 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHabitaciones().isEmpty()) {
+            if (getControlador().getHabitaciones().isEmpty()) {
                 System.out.println("No hay habitaciones dadas de alta en el sistema.");
             } else {
                 Habitacion habitacion = Consola.leerHabitacionPorIdentificador();
-                Habitacion habitacion1 = controlador.buscar(habitacion);
+                Habitacion habitacion1 = getControlador().buscar(habitacion);
                 if (habitacion1 == null) {
                     System.out.println("No existe la habitaci�n indicada.");
                 } else {
-                    controlador.borrar(habitacion1);
+                    getControlador().borrar(habitacion1);
                     System.out.println("Habitaci�n borrada correctamente.");
                 }
             }
@@ -200,7 +203,7 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            List<Habitacion> listaHabitacion = controlador.getHabitaciones();
+            List<Habitacion> listaHabitacion = getControlador().getHabitaciones();
             if (!listaHabitacion.isEmpty()) {
                 listaHabitacion.sort(Comparator.comparing(Habitacion::getIdentificador));
                 listaHabitacion.forEach(habitacion1 -> System.out.println(habitacion1.toString()));
@@ -229,7 +232,7 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHabitaciones().isEmpty()) {
+            if (getControlador().getHabitaciones().isEmpty()) {
                 System.out.println("No hay habitaciones dadas de alta en el sistema para poder realizar la reserva.");
             } else {
                 //comprobarDisponibilidad();
@@ -261,13 +264,13 @@ public class VistaTexto {
                     reserva = new Reserva(reserva);
                     reserva.setHabitacion(habitacionDisponible);
 
-                    controlador.insertar(reserva);
-                    if(controlador.buscar(reserva.getHuesped()) == null) {
-                        controlador.insertar(reserva.getHuesped());
+                    getControlador().insertar(reserva);
+                    if(getControlador().buscar(reserva.getHuesped()) == null) {
+                        getControlador().insertar(reserva.getHuesped());
                     } else {
                         System.out.println("El hu�sped de la reserva est� dado de alta e el sistema.\n");
                         System.out.println("Informaci�n del sistema:\n");
-                        System.out.println(controlador.buscar(reserva.getHuesped()).toString());
+                        System.out.println(getControlador().buscar(reserva.getHuesped()).toString());
                         /*System.out.println("\nInformaci�n del la reserva:\n");
                         System.out.println(reserva.getHuesped().toString());
                         System.out.println("\nDesea actualizar los datos del hu�sped en el sistema (S/N)?\n");
@@ -299,7 +302,7 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            List<Reserva> listaReservas = controlador.getReservas();
+            List<Reserva> listaReservas = getControlador().getReservas();
             if (!listaReservas.isEmpty()) {
                 try {
                     Huesped huesped = Consola.leerClientePorDni();
@@ -319,7 +322,7 @@ public class VistaTexto {
     public void listarReservas(Huesped huesped){
 
         try {
-            List<Reserva> listaReservas = controlador.getReservas(huesped);
+            List<Reserva> listaReservas = getControlador().getReservas(huesped);
             if (!listaReservas.isEmpty()){
                 listaReservas.sort(Comparator.comparing(
                         Reserva::getFechaInicioReserva).reversed().thenComparing(
@@ -344,7 +347,7 @@ public class VistaTexto {
         String cadena = "%0" + mensaje.length() + "d";
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
-        List<Reserva> listaReservas = controlador.getReservas();
+        List<Reserva> listaReservas = getControlador().getReservas();
         if (!listaReservas.isEmpty()) {
             try {
                 TipoHabitacion tipoHabitacion = Consola.leerTipoHabitacion();
@@ -365,7 +368,7 @@ public class VistaTexto {
         System.out.println(String.format(cadena1, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHabitaciones().isEmpty()) {
+            if (getControlador().getHabitaciones().isEmpty()) {
                 System.out.println("No hay habitaciones dadas de alta en el sistema para poder realizar la reserva.");
             } else {
                 TipoHabitacion tipoHabitacion = Consola.leerTipoHabitacion();
@@ -389,7 +392,7 @@ public class VistaTexto {
     public void listarReservas(TipoHabitacion tipoHabitacion){
 
         try {
-            List<Reserva> listaReservas  = controlador.getReservas(tipoHabitacion);
+            List<Reserva> listaReservas  = getControlador().getReservas(tipoHabitacion);
             if (!listaReservas.isEmpty()){
                 listaReservas.sort(Comparator.comparing(
                         Reserva::getFechaInicioReserva).reversed().thenComparing(
@@ -435,13 +438,13 @@ public class VistaTexto {
 
         char confReserva = 'S';
         try {
-            if (controlador.getReservas().isEmpty()) {
+            if (getControlador().getReservas().isEmpty()) {
                 System.out.println("No hay reservas dadas de alta en el sistema.");
             } else {
                 Huesped huesped = Consola.leerClientePorDni();
-                Huesped huesped1 = controlador.buscar(huesped);
+                Huesped huesped1 = getControlador().buscar(huesped);
                 if (huesped1 != null) {
-                    List<Reserva> reservas = controlador.getReservas(huesped1);
+                    List<Reserva> reservas = getControlador().getReservas(huesped1);
                     if (!reservas.isEmpty()) {
                         List<Reserva> reservas1 = getReservasAnulables(reservas);
 
@@ -458,7 +461,7 @@ public class VistaTexto {
                             confReserva = Entrada.caracter();
                         }
                         if (confReserva == 'S') {
-                            controlador.borrar(reservas.get(numReserva));
+                            getControlador().borrar(reservas.get(numReserva));
                             System.out.println("Reserva anulada correctamente.");
                         } else {
                             System.out.println("La reserva no ha sido anulada.");
@@ -483,7 +486,7 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            List<Reserva> listaReservas = controlador.getReservas();
+            List<Reserva> listaReservas = getControlador().getReservas();
             if (!listaReservas.isEmpty()) {
                 listaReservas.sort(Comparator.comparing(
                         Reserva::getFechaInicioReserva).reversed().thenComparing(
@@ -516,7 +519,7 @@ public class VistaTexto {
                 throw new NullPointerException("ERROR: La fecha de fin de reserva debe ser posterior a la fecha de inicio de reserva.");
             }
 
-            List<Habitacion> habitacionesTipoSolicitado = controlador.getHabitaciones(tipoHabitacion);
+            List<Habitacion> habitacionesTipoSolicitado = getControlador().getHabitaciones(tipoHabitacion);
 
             if (habitacionesTipoSolicitado.isEmpty()) {
                 return null;
@@ -525,7 +528,7 @@ public class VistaTexto {
                 //iterator.hasNext();) {
                 for (Habitacion habitacion : habitacionesTipoSolicitado) {
                     //System.out.println(habitacion);
-                    List<Reserva> reservasFuturas = controlador.getReservaFuturas(habitacion);
+                    List<Reserva> reservasFuturas = getControlador().getReservaFuturas(habitacion);
 
                     //int numElementosNoNulos = getNumElementosNoNulos(reservasFuturas);
                     if (reservasFuturas.isEmpty()) {
@@ -582,14 +585,14 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHabitaciones().isEmpty()) {
+            if (getControlador().getHabitaciones().isEmpty()) {
                 System.out.println("No hay habitaciones dadas de alta en el sistema. " +
                         "El checkin no se puede realizar.");
             } else {
                 Huesped huesped = Consola.leerClientePorDni();
-                Huesped huesped1 = controlador.buscar(huesped);
+                Huesped huesped1 = getControlador().buscar(huesped);
                 if (!(huesped1 == null)) {
-                    List<Reserva> reservas = controlador.getReservas(huesped1);
+                    List<Reserva> reservas = getControlador().getReservas(huesped1);
                     if (!reservas.isEmpty()) {
                         listarReservas(huesped1);
                         System.out.println("Elija la reserva a la que desea realizar el checkin.");
@@ -598,7 +601,7 @@ public class VistaTexto {
                         //listarReservas(reserva.getHabitacion().getTipoHabitacion());
                         String mensaje1 = "Introduce la fecha y hora de checkin de la reserva (%s): ";
                         LocalDateTime fechaHora = Consola.leerFechaHora(mensaje1);
-                        controlador.realizarCheckin(reserva, fechaHora);
+                        getControlador().realizarCheckin(reserva, fechaHora);
                         System.out.println("Checkin realizado correctamente.");
                     } else {
                         System.out.println("No existe ninguna reseva para dicho hu�sped.");
@@ -619,14 +622,14 @@ public class VistaTexto {
         System.out.println(String.format(cadena, 0).replace("0", "-"));
 
         try {
-            if (controlador.getHabitaciones().isEmpty()) {
+            if (getControlador().getHabitaciones().isEmpty()) {
                 System.out.println("No hay habitaciones dadas de alta en el sistema. " +
                         "El checkout no se puede realizar.");
             } else {
                 Huesped huesped = Consola.leerClientePorDni();
-                Huesped huesped1 = controlador.buscar(huesped);
+                Huesped huesped1 = getControlador().buscar(huesped);
                 if (!(huesped1 == null)) {
-                    List<Reserva> reservas = controlador.getReservas(huesped1);
+                    List<Reserva> reservas = getControlador().getReservas(huesped1);
                     if (!reservas.isEmpty()) {
                         listarReservas(huesped1);
                         System.out.println("Elija la reserva a la que desea realizar el checkin.");
@@ -635,7 +638,7 @@ public class VistaTexto {
                         //listarReservas(reserva.getHabitacion().getTipoHabitacion());
                         String mensaje1 = "Introduce la fecha y hora de checkout de la reserva (%s): ";
                         LocalDateTime fechaHora = Consola.leerFechaHora(mensaje1);
-                        controlador.realizarCheckout(reserva, fechaHora);
+                        getControlador().realizarCheckout(reserva, fechaHora);
                         System.out.println("Checkout realizado correctamente.");
                     } else {
                         System.out.println("No existe ninguna reseva para dicho hu�sped.");

@@ -4,6 +4,8 @@ import org.iesalandalus.programacion.reservashotel.controlador.Controlador;
 import org.iesalandalus.programacion.reservashotel.modelo.FactoriaFuenteDatos;
 import org.iesalandalus.programacion.reservashotel.modelo.IModelo;
 import org.iesalandalus.programacion.reservashotel.modelo.Modelo;
+import org.iesalandalus.programacion.reservashotel.vista.FactoriaVista;
+import org.iesalandalus.programacion.reservashotel.vista.Vista;
 import org.iesalandalus.programacion.reservashotel.vista.texto.VistaTexto;
 
 public class MainApp {
@@ -14,7 +16,7 @@ public class MainApp {
 
         try {
             IModelo modelo = new Modelo(procesarArgumentosFuenteDatos(args));
-            VistaTexto vista = new VistaTexto();
+            Vista vista = procesarArgumentosVista(args);
             Controlador controlador = new Controlador(modelo, vista);
             controlador.comenzar();
 
@@ -33,5 +35,17 @@ public class MainApp {
             }
         }
         return fuenteDatos;
+    }
+
+    private static Vista procesarArgumentosVista(String[] args) {
+        Vista fuenteVista = FactoriaVista.GRAFICA.crear();
+        for (String argumento : args) {
+            if (argumento.equalsIgnoreCase("-vTexto")) {
+                fuenteVista = FactoriaVista.TEXTO.crear();
+            } else if (argumento.equalsIgnoreCase("-vGrafica")) {
+                fuenteVista = FactoriaVista.GRAFICA.crear();;
+            }
+        }
+        return fuenteVista;
     }
 }
