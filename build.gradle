@@ -23,8 +23,8 @@ sourceCompatibility = '17'
 targetCompatibility = '17'
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    //options.encoding = 'ISO-8859-1'
+    //options.encoding = 'UTF-8'
+    options.encoding = 'ISO-8859-1'
 }
 
 application {

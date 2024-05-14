@@ -18,7 +18,7 @@ public class LanzadorVentanaPrincipal extends Application {
     @Override
     public void start(Stage escenarioPrincipal) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LocalizadorRecursos.class.getResource("VistaVentanaPrincipal.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(LocalizadorRecursos.class.getResource("VentanaPrincipal.fxml"));
             Parent raiz = fxmlLoader.load();
             Scene escena = new Scene(raiz);
             escenarioPrincipal.setTitle("Gestión de Hoteles IES Al-Ándalus");
